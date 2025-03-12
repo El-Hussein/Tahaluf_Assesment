@@ -1,0 +1,21 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@designSystem/*": ["designSystem/*"],
+      "@components/*": ["src/components/*"],
+      "@home/*": ["src/home/*"],
+      "@appTypes/*": ["src/types/*"],
+      "@transport/*": ["src/transport/*"],
+      "@utils/*": ["src/utils/*"],
+      "@mocks/*": ["src/__mocks__/*"],
+      "@assets/*": ["src/assets/*"],
+      "@translation/*": ["src/translation/*"],
+      "@theme/*": ["src/theme/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@env": ["env.json"]
+    }
+  }
+}
