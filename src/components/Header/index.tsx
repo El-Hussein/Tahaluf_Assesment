@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ title, showBack }) => {
       </View>
 
       <AppText style={getStyles(['text-gray', 'text-h6', 'my-md'])}> Your Progress </AppText>
-      <ProgressBar total={100} progress={10} />
+      <ProgressBar total={totalAnsweredQuestions} progress={totalQuestions} />
     </View>
   );
 };

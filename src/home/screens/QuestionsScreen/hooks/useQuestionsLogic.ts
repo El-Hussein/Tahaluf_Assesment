@@ -1,7 +1,7 @@
-import { CATEGORY_TYPE } from '@appTypes/api/home';
+import { CATEGORY_TYPE, QUESTION_DIFFICULTY } from '@appTypes/api/home';
 import { useHomeStore } from '@home/store/home';
 import { questions } from '@mocks/home/data';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 export const useQuestionsLogic = (categoryType: CATEGORY_TYPE) => {
@@ -10,16 +10,32 @@ export const useQuestionsLogic = (categoryType: CATEGORY_TYPE) => {
     easy: [],
     medium: [],
     hard: [],
-  })
+  });
 
-  const { questions } = useHomeStore(
+  const { questions, currentStep } = useHomeStore(
     useShallow(state => ({
       questions: state.availableQuestions,
-      setupData: state.setupData,
+      currentStep: state.currentCategoryStep,
     })),
   );
 
+  useEffect(() => {
+    questions[categoryType].questions.forEach(question => {
+      setQuestionLevels((questionsLevels) => ({
+        ...questionsLevels,
+        [question.difficulty]: [...questionsLevels[question.difficulty], question],
+      }))
+    });
+  }, [])
+
+  // LOL: NEED REFACTOR
+  const currentStepQuestions = useMemo(() => currentStep === 1
+    ? questionLevels.easy
+    : currentStep === 2
+      ? questionLevels.medium
+      : questionLevels.hard, [currentStep, questionLevels]);
+
   return {
-    questions: questions[categoryType].questions,
+    questions: currentStepQuestions,
   };
 };

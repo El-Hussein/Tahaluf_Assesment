@@ -1,4 +1,4 @@
-package com.tahalufassesment
+package com.athalufnew
 
 import android.app.Application
 import com.facebook.react.PackageList

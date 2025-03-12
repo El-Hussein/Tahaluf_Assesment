@@ -16,7 +16,6 @@ const QuestionsList: React.FC<QuestionsListProps> = ({ questions }) => {
 
   return (
     <View>
-      <Header title="Categories" />
       <FlatList
         ListFooterComponent={<QuestionsListFooter />}
         data={questions}

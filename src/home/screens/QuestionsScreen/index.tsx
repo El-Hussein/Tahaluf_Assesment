@@ -7,6 +7,7 @@ import { useRoute } from '@react-navigation/native';
 
 import { RouteProp } from '@react-navigation/native';
 import { CATEGORY_TYPE } from '@appTypes/api/home';
+import Header from '@components/Header';
 
 type RouteParams = {
   params: {
@@ -17,15 +18,12 @@ type RouteParams = {
 const QuestionsScreen = () => {
   const route = useRoute<RouteProp<RouteParams>>();
   const { categoryType } = route.params;
-  const { getStyles } = GetStyles();
-  const { colors } = useTheme();
-
   const { questions } = useQuestionsLogic(categoryType);
 
   console.log('questiosn', questions);
   return (
     <>
-      {/* <ProgressBar/> */}
+      <Header showBack title="Categories" />
       <QuestionsList questions={questions} />
     </>
   );

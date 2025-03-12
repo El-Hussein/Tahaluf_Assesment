@@ -1,4 +1,4 @@
-import { Category, CATEGORY_TYPE, Question, QuestionAnswer } from '@appTypes/api/home';
+import { Category, CATEGORY_TYPE, Question, QUESTION_DIFFICULTY, QuestionAnswer } from '@appTypes/api/home';
 import { Control } from 'react-hook-form';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -6,7 +6,7 @@ import { immer } from 'zustand/middleware/immer';
 export type HomeState = {
   categories: Category[];
   availableQuestions: { [categoryType in CATEGORY_TYPE]: { questions: Question[] } };
-  questionAnswers: { [question_id: string]: string };
+  questionAnswers: { [question_id: string]: { answer: string; difficulty: QUESTION_DIFFICULTY } };
   totalAnsweredQuestions: number;
   totalQuestions: number;
   currentCategoryStep: number;
@@ -30,7 +30,6 @@ export const useHomeStore = create(
     isLoaded: false,
     totalAnsweredQuestions: 0,
     totalQuestions: 0,
-    control: null,
     currentCategoryStep: 1,
 
     setupData: (data) => {
@@ -54,7 +53,7 @@ export const useHomeStore = create(
 
     answerQuestion: (question, answer) => {
       set(state => {
-        state.questionAnswers[question.id] = answer
+        state.questionAnswers[question.id] = { answer, difficulty: question.difficulty }
         if (state.questionAnswers[question.id]) {
           state.totalAnsweredQuestions += 1;
         }
